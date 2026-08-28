@@ -31,7 +31,7 @@ describe("PromisePool", () => {
     });
   });
 
-  it.only("throws error if count not greater then 0", async () => {
+  it("throws error if count not greater then 0", async () => {
     const promises = [
       () => delay("A", 1000),
       () => delay("B", 100),

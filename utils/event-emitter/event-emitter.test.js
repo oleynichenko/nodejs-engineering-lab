@@ -2,9 +2,6 @@ const { describe, it, beforeEach } = require("node:test");
 const assert = require("node:assert");
 const { EventEmitter } = require("./event-emitter");
 
-// node --test --test-only
-// node --test
-
 describe("EventEmitter", () => {
   let emitter;
 
