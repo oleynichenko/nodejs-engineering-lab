@@ -74,7 +74,7 @@ describe("EventEmitter", () => {
     });
   });
 
-  it.only("pass the same arguments to all listeners", () => {
+  it("pass the same arguments to all listeners", () => {
     let args1;
     let args2;
 
