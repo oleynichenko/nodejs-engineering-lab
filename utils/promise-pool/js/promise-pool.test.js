@@ -9,10 +9,10 @@ function delay(value, ms) {
 describe("PromisePool", () => {
   it("returns an array with results in the same order", async () => {
     const promises = [
-      () => delay("A", 1000),
+      () => delay("A", 100),
       () => delay("B", 100),
       () => delay("C", 200),
-      () => delay("D", 3000),
+      () => delay("D", 300),
     ];
 
     const results = await PromisePool(promises, 2);

@@ -67,7 +67,7 @@ describe("middleware", () => {
 });
 
 describe("pipeline", () => {
-  it.only("should throw the same error if a middleware throws an error", () => {
+  it("should throw the same error if a middleware throws an error", () => {
     const error = new Error("Error 1");
 
     const middleware1 = (_context, _next) => {
