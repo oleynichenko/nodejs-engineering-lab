@@ -1,13 +1,13 @@
 ---
-name: create-interview-task
+name: nel-new-task
 description: >-
   Scaffold a Node.js backend interview coding task in utils/ with README,
   SOLUTION (TypeScript), and empty ts stubs. Use when the user asks to create
-  a new interview task, gives a task name (e.g. "debounce", "rate limiter"),
-  or wants the same structure as utils/retry.
+  a new interview task, names nel-new-task, gives a task name (e.g. "debounce",
+  "rate limiter"), or wants the same structure as utils/retry.
 ---
 
-# Create Interview Task
+# nel-new-task
 
 Scaffold a new interview exercise under `utils/{task-name}/`. Canonical example: `utils/retry/`.
 
