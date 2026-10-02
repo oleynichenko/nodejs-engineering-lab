@@ -69,26 +69,73 @@ describe("EventEmitter", () => {
 
       assert.strictEqual(callsCounter, 0);
     });
+
+    it("pass the same arguments to all listeners", () => {
+      let args1;
+      let args2;
+
+      const listener1 = (...args) => {
+        args1 = args;
+      };
+
+      const listener2 = (...args) => {
+        args2 = args;
+      };
+
+      emitter.on("Event 1", listener1);
+      emitter.on("Event 1", listener2);
+
+      emitter.emit("Event 1", "user", 42);
+
+      assert.deepStrictEqual(args1, ["user", 42]);
+      assert.deepStrictEqual(args2, ["user", 42]);
+    });
   });
 
-  it("pass the same arguments to all listeners", () => {
-    let args1;
-    let args2;
+  describe("off()", () => {
+    it("should remove the listener", () => {
+      let callsCounter = 0;
 
-    const listener1 = (...args) => {
-      args1 = args;
-    };
+      const listener = () => {
+        callsCounter++;
+      };
 
-    const listener2 = (...args) => {
-      args2 = args;
-    };
+      emitter.on("Event", listener);
+      emitter.emit("Event");
 
-    emitter.on("Event 1", listener1);
-    emitter.on("Event 1", listener2);
+      emitter.off("Event", listener);
+      emitter.emit("Event");
 
-    emitter.emit("Event 1", "user", 42);
+      assert.equal(callsCounter, 1);
+    });
 
-    assert.deepStrictEqual(args1, ["user", 42]);
-    assert.deepStrictEqual(args2, ["user", 42]);
+    it("should remove only the specified listener", () => {
+      let callsCounter1 = 0;
+      let callsCounter2 = 0;
+
+      const listener1 = () => {
+        callsCounter1++;
+      };
+
+      const listener2 = () => {
+        callsCounter2++;
+      };
+
+      emitter.on("Event", listener1);
+      emitter.on("Event", listener2);
+
+      emitter.emit("Event");
+
+      emitter.off("Event", listener2);
+
+      emitter.emit("Event");
+
+      assert.equal(callsCounter1, 2);
+      assert.equal(callsCounter2, 1);
+    });
+  });
+
+  it("should not throw if the event does not exist", () => {
+    assert.doesNotThrow(() => emitter.emit("NonExistingEvent"));
   });
 });

@@ -18,19 +18,22 @@ class EventEmitter {
     this.events.set(event, [listener]);
   }
 
-  // off(event, listener) {
-  //   if (!this.#has(event)) {
-  //     return;
-  //   }
+  off(event, listener) {
+    const existingListeners = this.events.get(event);
 
-  //   const listeners = this.#get(event);
+    if (!existingListeners) {
+      return;
+    }
 
-  //   if (!listeners) {
-  //     return;
-  //   }
+    const updatedListeners = existingListeners.filter(l => l !== listener);
 
-  //   const filteredListeners = listeners.filter((l) => l !== listener);
-  // }
+    if (!updatedListeners.length) {
+      this.events.delete(event);
+      return;
+    }
+
+    this.events.set(event, updatedListeners);
+  }
 
   emit(event, ...args) {
     const listeners = this.events.get(event);

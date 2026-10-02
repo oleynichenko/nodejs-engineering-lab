@@ -1,9 +1,9 @@
-const { describe, it, beforeEach } = require("node:test");
+const { describe, it } = require("node:test");
 const assert = require("node:assert");
 const retry = require("./retry");
 
 describe("Retry", () => {
-  it.only("should return result when function succeeds on first attempt", async () => {
+  it("should return result when function succeeds on first attempt", async () => {
     let calls = 0;
 
     const testFunc = () => {
