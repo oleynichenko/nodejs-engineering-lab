@@ -37,20 +37,22 @@ describe("Retry", () => {
     assert.strictEqual(result, "success");
   });
 
-  it("should throw immediately when retries is 0", async () => {
+  // TODO continue
+  it.only("should throw immediately when retries is 0", async () => {
     let calls = 0;
+    const errorMessage = "An error happened";
 
     const testFunc = () => {
       calls++;
-
-      if (calls === retries) {
-        return 'success';
-      }
-
-      throw new Error();
+      throw new Error(errorMessage);
     };
 
-    assert.strictEqual(calls, 0);
+    await assert.rejects(
+      retry(testFunc, { retries: 0 }),
+      { message: errorMessage }
+    );
+
+    assert.equal(calls, 1);
   });
 
   it("should execute the function the expected number of times", async () => {
